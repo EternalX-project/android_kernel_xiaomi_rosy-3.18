@@ -60,3 +60,14 @@ config PSTORE_RAM
 	  "ramoops.ko".
 
 	  For more information, see Documentation/ramoops.txt.
+
+config PSTORE_LAST_KMSG
+	bool "Last kernel messages interface"
+	select PSTORE
+	select PSTORE_CONSOLE
+	help
+	  Say Y here to enable pstore interface used for storing the
+	  last kernel messages. The interface is located in
+	  /proc/last_kmsg
+
+	  If unsure, say Y.
