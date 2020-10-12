@@ -1,4 +1,4 @@
-CONFIG_LOCALVERSION="-EternalX"
+CONFIG_LOCALVERSION="-EternalX-v2.0-alpha-rosy"
 # CONFIG_USELIB is not set
 CONFIG_AUDIT=y
 CONFIG_NO_HZ=y
