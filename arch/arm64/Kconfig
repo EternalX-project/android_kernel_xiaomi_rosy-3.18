@@ -234,6 +234,13 @@ config MSM_GVM_QUIN
 		This should work on 64bit machine.
 		If you don't know what to do here, say N.
 
+config BOOT_INFO
+	bool "Boot information from bootloader"
+	default y
+	help
+	  On embedded linux device, we try to collect more information from
+	  bootloader to kernel. eg. powerup reason.
+
 source "init/Kconfig"
 
 source "kernel/Kconfig.freezer"
@@ -360,6 +367,22 @@ config ARCH_MSM8994_V1_TLBI_WA
 	  workaround is required for MSM8994 V1 revision where the
 	  [39:38] bits of VA are tied to zero and due to which TLBI
 	  operations with VA or ASID will not work.
+
+config MACH_XIAOMI
+	bool "Enable Support Xiaomi devices"
+	help
+	  This enables support for Xiaomi devices.
+
+if MACH_XIAOMI
+
+config MACH_XIAOMI_ROSY
+	bool "Enable Support Xiaomi Redmi 5 (rosy)"
+	select ARCH_MSM8953
+	select ARCH_SDM450
+	help
+	  This enables support for Xiaomi Redmi 5 (rosy)
+
+endif
 
 endmenu
 
