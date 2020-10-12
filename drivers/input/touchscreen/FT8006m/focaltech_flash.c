@@ -80,6 +80,7 @@ u8 ft8006m_aucFW_PRAM_BOOT[] =
 #endif
 };
 
+struct fts_upgrade_fun ft8006m_updatefun;
 struct fts_upgrade_fun  ft8006m_updatefun_curr;
 struct workqueue_struct *ft8006m_touch_wq;
 struct work_struct ft8006m_fw_update_work;
