@@ -1,0 +1,7 @@
+config FINGERPRINT_FPC1020
+	tristate "FPC1020 fingerprint driver"
+	help
+	  Say Y here to compile fingerprint drivers for FingerPrint Cards
+	  FPC1020.
+
+	  If unsure, say Y.

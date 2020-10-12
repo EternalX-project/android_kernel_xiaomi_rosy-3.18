@@ -1,0 +1,6 @@
+config FINGERPRINT_GF3208
+	tristate "GF3208 fingerprint driver"
+	help
+	  Say Y here to compile fingerprint drivers for Goodix GF3208.
+
+	  If unsure, say Y.
