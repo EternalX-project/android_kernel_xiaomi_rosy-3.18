@@ -5,8 +5,9 @@ jobs:
       - image: ubuntu:20.04
    steps:
       - run:
-          no_output_timeout: 50m
+          no_output_timeout: 50m 
           command: |
+           export DEBIAN_FRONTEND=noninteractive
            apt-get -y update && apt-get -y upgrade && apt-get -y install bc build-essential bison flex zip gcc clang libc6 curl libstdc++6 git wget libssl-dev && apt-get -y install p7zip-full python python2 python3 python3-pip tzdata
            git clone https://github.com/zexceed12300/eternalx_ci -b EternalX-project/android_kernel_xiaomi_rosy-3.18
            cd eternalx_ci
