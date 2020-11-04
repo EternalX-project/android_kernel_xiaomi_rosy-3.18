@@ -15,7 +15,7 @@ jobs:
            git clone https://github.com/EternalX-project/android_kernel_xiaomi_rosy-3.18.git -b circleci-project-setup --depth=1
            git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b ndk-release-r16 --depth=1
            pip3 install -r requirements.txt   
-           python3 ci_build.py --build --tele-notifier --verbose --tz-data Asia/Jakarta
+           python3 ci_build.py --build --tele-notifier --verbose --tele-tz Asia/Jakarta
 workflows:
   version: 2.1
   cooking:
