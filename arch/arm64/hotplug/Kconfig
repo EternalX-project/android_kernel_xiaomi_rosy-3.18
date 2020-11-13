@@ -1,0 +1,21 @@
+config MSM_HOTPLUG
+	bool "Enable MSM-Hotplug CPUs Hotplug drivers"
+	depends on HOTPLUG_CPU
+	default n
+	help
+	  The MSM hotplug driver controls on-/offlining of additional cores based on current cpu load.
+	  
+config ALUCARD_HOTPLUG
+	bool "Enable Alucard CPUs Hotplug drivers"
+	depends on HOTPLUG_CPU
+ 	default n
+ 	help
+ 	  Generic Alucard-hotplug cpu hotplug driver for ARM SOCs
+
+config ASMP_HOTPLUG
+    bool "Enable AutoSMP CPUs Hotplug drivers"
+    depends on SMP && HOTPLUG_CPU
+    default n
+    help
+      Automatically hotplugs the multiple cpu cores on and off
+      based on cpu load and suspend state
