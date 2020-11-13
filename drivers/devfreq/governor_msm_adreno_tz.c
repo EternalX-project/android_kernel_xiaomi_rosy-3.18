@@ -62,6 +62,9 @@ static u64 suspend_time;
 static u64 suspend_start;
 static unsigned long acc_total, acc_relative_busy;
 
+#ifdef CONFIG_ADRENO_BOOST
+static unsigned int adrenoboost = 0;
+#endif
 static struct msm_adreno_extended_profile *partner_gpu_profile;
 static void do_partner_start_event(struct work_struct *work);
 static void do_partner_stop_event(struct work_struct *work);
@@ -161,6 +164,34 @@ void compute_work_load(struct devfreq_dev_status *stats,
 				devfreq->profile->freq_table[0];
 	spin_unlock(&sample_lock);
 }
+
+#ifdef CONFIG_ADRENO_BOOST
+static ssize_t adrenoboost_show(struct device *dev,
+		struct device_attribute *attr, char *buf)
+{
+	size_t count = 0;
+	count += sprintf(buf, "%d\n", adrenoboost);
+
+	return count;
+}
+
+static ssize_t adrenoboost_save(struct device *dev,
+		struct device_attribute *attr, const char *buf, size_t count)
+{
+	int input;
+	sscanf(buf, "%d ", &input);
+	if (input < 0 || input > 3) {
+		adrenoboost = 0;
+	} else {
+		adrenoboost = input;
+	}
+
+	return count;
+}
+
+static DEVICE_ATTR(adrenoboost, 0644,
+		adrenoboost_show, adrenoboost_save);
+#endif
 
 /* Trap into the TrustZone, and call funcs there. */
 static int __secure_tz_reset_entry2(unsigned int *scm_data, u32 size_scm_data,
@@ -376,6 +407,16 @@ static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 #endif
 
 	priv->bin.total_time += stats.total_time;
+	
+#ifdef CONFIG_ADRENO_BOOST
+	// scale busy time up based on adrenoboost parameter, only if MIN_BUSY exceeded...
+	if ((unsigned int)(priv->bin.busy_time + stats.busy_time) >= MIN_BUSY) {
+		priv->bin.busy_time += stats.busy_time * (1 + (adrenoboost*3)/2);
+	} else {
+		priv->bin.busy_time += stats.busy_time;
+	}
+#endif
+	
 	priv->bin.busy_time += stats.busy_time;
 
 	if (stats.private_data)
@@ -513,6 +554,10 @@ static int tz_start(struct devfreq *devfreq)
 	for (i = 0; adreno_tz_attr_list[i] != NULL; i++)
 		device_create_file(&devfreq->dev, adreno_tz_attr_list[i]);
 
+#ifdef CONFIG_ADRENO_BOOST
+ 	device_create_file(&devfreq->dev, &dev_attr_adrenoboost);
+#endif
+
 	return kgsl_devfreq_add_notifier(devfreq->dev.parent, &priv->nb);
 }
 
@@ -522,6 +567,10 @@ static int tz_stop(struct devfreq *devfreq)
 	struct devfreq_msm_adreno_tz_data *priv = devfreq->data;
 
 	kgsl_devfreq_del_notifier(devfreq->dev.parent, &priv->nb);
+
+#ifdef CONFIG_ADRENO_BOOST
+	device_remove_file(&devfreq->dev, &dev_attr_adrenoboost);
+#endif
 
 	for (i = 0; adreno_tz_attr_list[i] != NULL; i++)
 		device_remove_file(&devfreq->dev, adreno_tz_attr_list[i]);
