@@ -147,7 +147,7 @@
 			qcom,acc = <&acc4>;
 			qcom,limits-info = <&mitigation_profile4>;
 			qcom,ea = <&ea4>;
-			efficiency = <1126>;
+			efficiency = <1024>;
 			next-level-cache = <&L2_1>;
 			L2_1: l2-cache {
 			      compatible = "arm,arch-cache";
@@ -174,7 +174,7 @@
 			qcom,acc = <&acc5>;
 			qcom,limits-info = <&mitigation_profile5>;
 			qcom,ea = <&ea5>;
-			efficiency = <1126>;
+			efficiency = <1024>;
 			next-level-cache = <&L2_1>;
 			L1_I_101: l1-icache {
 			      compatible = "arm,arch-cache";
@@ -194,7 +194,7 @@
 			qcom,acc = <&acc6>;
 			qcom,limits-info = <&mitigation_profile6>;
 			qcom,ea = <&ea6>;
-			efficiency = <1126>;
+			efficiency = <1024>;
 			next-level-cache = <&L2_1>;
 			L1_I_102: l1-icache {
 			      compatible = "arm,arch-cache";
@@ -214,7 +214,7 @@
 			qcom,acc = <&acc7>;
 			qcom,limits-info = <&mitigation_profile7>;
 			qcom,ea = <&ea7>;
-			efficiency = <1126>;
+			efficiency = <1024>;
 			next-level-cache = <&L2_1>;
 			L1_I_103: l1-icache {
 			      compatible = "arm,arch-cache";
