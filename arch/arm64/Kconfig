@@ -361,6 +361,22 @@ config ARCH_MSM8994_V1_TLBI_WA
 	  [39:38] bits of VA are tied to zero and due to which TLBI
 	  operations with VA or ASID will not work.
 
+config MACH_XIAOMI
+	bool "Enable Support Xiaomi devices"
+	help
+	  This enables support for Xiaomi devices.
+
+if MACH_XIAOMI
+
+config MACH_XIAOMI_ROSY
+	bool "Enable Support Xiaomi Redmi 5 (rosy)"
+	select ARCH_MSM8953
+	select ARCH_SDM450
+	help
+	  This enables support for Xiaomi Redmi 5 (rosy)
+
+endif
+
 endmenu
 
 menu "Bus support"
