@@ -84,6 +84,7 @@ u8 CTPM_LCD_CFG[] =
 #endif
 };
 
+struct fts_upgrade_fun fts_updatefun;
 struct fts_upgrade_fun  fts_updatefun_curr;
 struct workqueue_struct *touch_wq;
 struct work_struct fw_update_work;
