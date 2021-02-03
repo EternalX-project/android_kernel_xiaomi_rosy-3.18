@@ -2074,8 +2074,8 @@ struct net_device *gether_connect(struct gether *link)
 	 * req->buf which is allocated later
 	 */
 	if (!dev->sg_enabled) {
-		link->header = kzalloc(sizeof(struct rndis_packet_msg_type),
-						GFP_ATOMIC);
+		/* size of rndis_packet_msg_type is 44 */
+		link->header = kzalloc(44, GFP_ATOMIC);
 		if (!link->header) {
 			pr_err("RNDIS header memory allocation failed.\n");
 			result = -ENOMEM;
